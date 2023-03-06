@@ -9,13 +9,14 @@ const JobFeed = () => {
   const HACKERNEWS_POSTID_API = `https://hacker-news.firebaseio.com/v0/jobstories.json`;
   const [posts, setPosts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(10);
   const [endReached, setEndReached] = useState(false);
 
   useEffect(() => {
     fetchAllJobIds();
   }, [pageNumber]);
 
+  // Fetch all job ids and splice the data into pages
   const fetchAllJobIds = async () => {
     if (!endReached) {
       const response = await axios.get(HACKERNEWS_POSTID_API);
@@ -67,10 +68,10 @@ const Post = ({ post }) => {
     <a href={post?.url} target="__blank" style={{ textDecoration: 'none' }}>
       <div className={styles.postContainer}>
         <p>
-          ID: <span>{post.id}</span>{' '}
+          ID: <span>{post?.id}</span>{' '}
         </p>
-        <h1>{post.title}</h1>
-        <p>{moment(post.time).format('Do MMM YYYY hh:mm a')}</p>
+        <h1>{post?.title}</h1>
+        <p>{moment(post?.time).format('Do MMM YYYY hh:mm a')}</p>
         <p>
           Posted by: <span>{post?.by}</span>{' '}
         </p>
